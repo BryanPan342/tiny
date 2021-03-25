@@ -20,11 +20,11 @@ export const getServerSideProps: GetServerSideProps = async ({params, res}) => {
     },
     body: JSON.stringify({query: redirectQuery(link)}),
   });
-  const {data, error} = await contentfulRes.json();
+  const {data} = await contentfulRes.json();
   const redirect = data?.redirectCollection?.items;
   if (redirect.length) {
     res.writeHead(301, {location: redirect[0].url});
     res.end();
   }
   return {props: {}};
-}
+};
