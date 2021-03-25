@@ -25,14 +25,7 @@ const main = async () => {
   const redirects = data.redirectCollection.items.reduce((acc, {redirectPath, url}) => {
     return `${acc}/${redirectPath} ${url}\n`;
   }, '');
-  const vercelRedirects = data.redirectCollection.items.map(({redirectPath, url}) => {
-    return {
-      source: `/${redirectPath}`,
-      destination: url,
-    };
-  });
   writeFileSync(path.resolve(__dirname, '../_redirects'), redirects);
-  writeFileSync(path.resolve(__dirname, '../vercel.json'), JSON.stringify({ redirects: vercelRedirects}, null, 2));
 }
 
 main();
