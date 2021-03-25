@@ -1,0 +1,12 @@
+{
+  "redirects": [
+    {
+      "source": "/linkedin",
+      "destination": "https://www.linkedin.com/in/blpan"
+    },
+    {
+      "source": "/github",
+      "destination": "https://github.com/BryanPan342"
+    }
+  ]
+}
