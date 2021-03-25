@@ -62,5 +62,5 @@ export default function Home(): JSX.Element {
         </a>
       </footer>
     </div>
-  )
+  );
 }
