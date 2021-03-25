@@ -12,7 +12,6 @@ const contentfulQuery = `{
 }`;
 
 const main = async () => {
-  console.log(process.env.SPACE_ID);
   const contentfulRes = await fetch(`https://graphql.contentful.com/content/v1/spaces/${process.env.SPACE_ID}`, {
     method: 'POST',
     headers: {
@@ -21,14 +20,11 @@ const main = async () => {
     },
     body: JSON.stringify({ query: contentfulQuery }),
   });
-  const {data, error} = await contentfulRes.json();
-  const redirects = data?.redirectCollection?.items.map(({redirectPath, url}) => {
-    return {
-      source: `/${redirectPath}`,
-      destination: url,
-    };
-  });
-  writeFileSync(`${__dirname}/../vercel.json`, JSON.stringify({ redirects }, null, 2));
+  const {data} = await contentfulRes.json();
+  const redirects = data.redirectCollection.items.reduce((acc, {redirectPath, url}) => {
+    return `${acc}/${redirectPath} ${url}\n`;
+  }, '');
+  writeFileSync(`${__dirname}/../_redirects`, redirects);
 }
 
 main();

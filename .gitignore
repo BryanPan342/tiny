@@ -33,5 +33,5 @@ yarn-error.log*
 # vercel
 .vercel
 
-# This gets updated on every build
-vercel.json
+# Redirect file gets built at build time
+_redirect
