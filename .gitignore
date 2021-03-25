@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# This gets updated on every build
+vercel.json
