@@ -3,6 +3,9 @@ export const contentfulQuery = `{
     items {
       displayName
       url
+      icon {
+        url
+      }
     }
   }
 }`;

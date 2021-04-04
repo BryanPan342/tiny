@@ -9,6 +9,7 @@ import { contentfulQuery } from '../utils';
 interface Link {
   url: string;
   displayName: string;
+  icon: {url: string}
 }
 
 interface HomeProps {
@@ -25,7 +26,6 @@ export default function Home(props: HomeProps): JSX.Element {
   }, []);
 
   const onDrag = useCallback(() => {
-    console.log('dragging');
     setDragging(true);
     clearTimeout(timeout.current);
     timeout.current = setTimeout(() => setDragging(false), 250);
@@ -43,18 +43,24 @@ export default function Home(props: HomeProps): JSX.Element {
         <title>Bryan's Links</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-        {links.map(({url, displayName}) =>
-          <Draggable
-            onDrag={onDrag}>
-              <div onClick={handleClick}>
-                <a href={url} target='_blank' rel='noreferrer'>
-                  <div>
-                    {displayName}
-                  </div>
-                </a>
-              </div>
-          </Draggable>
+      <div className={styles.desktop}>
+        {links.map(({url, displayName, icon}) =>
+            <Draggable
+              onDrag={onDrag}
+              key={displayName}>
+                <div className={styles.iconWrapper} onClick={handleClick}>
+                  <a href={url} target='_blank' rel='noreferrer'>
+                    <div className={styles.icon}>
+                      <img src={icon.url} draggable='false' />
+                      <div>
+                        {displayName}
+                      </div>
+                    </div>
+                  </a>
+                </div>
+            </Draggable>
         )}
+      </div>
       <div className={styles.taskbar}>
         <button className={styles.startButton}>
           <Image src={'/windows.png'} width='16' height='16'/>
