@@ -51,7 +51,7 @@ export default function Home(props: HomeProps): JSX.Element {
                 <div className={styles.iconWrapper} onClick={handleClick}>
                   <a href={url} target='_blank' rel='noreferrer'>
                     <div className={styles.icon}>
-                      <img src={icon.url} draggable='false' />
+                      {icon && <img src={icon.url} draggable='false' />}
                       <div>
                         {displayName}
                       </div>
@@ -82,5 +82,6 @@ export const getStaticProps: GetStaticProps = async () => {
   });
   const {data} = await res.json();
   const links = data?.redirectCollection?.items;
+  console.log(links);
   return { props: {links} };
 }
